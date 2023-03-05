@@ -2,10 +2,10 @@ package iteration
 
 import "strings"
 
-const repeatCount = 5
-
 // BenchmarkRepeat-8   	30310506	        42.86 ns/op	       8 B/op	       1 allocs/op
-func Repeat(s string) string {
+
+// Repeat returns the string repeated
+func Repeat(s string, repeatCount int) string {
 	sb := strings.Builder{}
 
 	for i := 0; i < repeatCount; i++ {
@@ -16,7 +16,7 @@ func Repeat(s string) string {
 }
 
 // BenchmarkRepeat-8   	 5995449	       182.1 ns/op	      16 B/op	       4 allocs/op
-// func Repeat(character string) string {
+// func Repeat(character string, repeatCount int) string {
 // 	var repeated string
 // 	for i := 0; i < repeatCount; i++ {
 // 		repeated += character
