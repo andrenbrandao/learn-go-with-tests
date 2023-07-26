@@ -4,20 +4,20 @@ import (
 	"net/http"
 )
 
-func Racer(url1, url2 string) string {
-	ch := make(chan string)
-
-	getUrl := func(url string) {
-		_, err := http.Get(url)
-
-		if err == nil {
-			ch <- url
-		}
+func Racer(a, b string) (winner string) {
+	select {
+	case <-ping(a):
+		return a
+	case <-ping(b):
+		return b
 	}
+}
 
-	go getUrl(url1)
-	go getUrl(url2)
-
-	res := <-ch
-	return res
+func ping(url string) chan struct{} {
+	ch := make(chan struct{})
+	go func() {
+		http.Get(url)
+		close(ch)
+	}()
+	return ch
 }
